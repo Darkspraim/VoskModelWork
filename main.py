@@ -32,7 +32,8 @@ table = {
     "тормозить": 21,
     "отпустить": 22
 }
-# Таблица для 
+# Таблица для преобразования числительного в число
+
 table2 = {
     "один" : 1,
     "два": 2,
@@ -63,7 +64,7 @@ table2 = {
     "девяносто": 90
 }
 
-# Предполагает атрибут команды.
+# Предполагает атрибут команд 4 и 10.
 def spisok(query,attribute = 0):
     eror = False
     query = query.split(" ")
@@ -150,32 +151,29 @@ def listen_offline():
 
 def main():
     query = listen_offline()
-    print(query)#debug
+    
     attribute, label = get_attribute(query)
-    print(attribute,label)#debug
-    if attribute == 0 : print("Запрос не распознан.")
-    else : print("Метка:", label, "Атрибут:", attribute)
-
-    # # Открываем JSON файл
-    # with open("keeys.json", "rb") as f:
-    #     l = json.load(f)
-    #
-    # # Проверяем наличие ключа в словаре
-    # found_key = None
-    # for key, phrases in l.items():
-    #     print(key)
-    #     if any(phrase in query for phrase in phrases):
-    #         found_key = key
-    #         break
-    #
+    
+     # Открываем JSON файл
+    with open("keeys.json", "rb") as f:
+        l = json.load(f)
+    
+     # Проверяем наличие ключа в словаре
+    found_key = None
+    for key, phrases in l.items():
+        print(key)
+        if any(phrase in query for phrase in phrases):
+            found_key = key
+            break
+    
     # #ключ для определенного атрибута
-    # print(query)
-    # if found_key:
-    #     print("Запрос:", query)
-    #     attribute, label = get_attribute(found_key)
-    #     print("Метка:", label,"Атрибут:", attribute)
-    # else:
-    #     print("Запрос не распознан.")
+    print(query)
+    if found_key:
+        print("Запрос:", query)
+        attribute, label = get_attribute(found_key)
+        print("Метка:", label,"Атрибут:", attribute)
+    else:
+         print("Запрос не распознан.")
 
 # Запущен ли файл как основная программа.
 if __name__ == '__main__':
