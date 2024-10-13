@@ -32,7 +32,7 @@ table = {
     "тормозить": 21,
     "отпустить": 22
 }
-# Таблица
+# Таблица для 
 table2 = {
     "один" : 1,
     "два": 2,
@@ -137,7 +137,7 @@ def listen_offline():
     reduced_noise_audio = nr.reduce_noise(y=audio, sr=sample_rate)
 
     # Сохранение обработанного аудиофайла
-    sf.write(output_file, reduced_noise_audio, sample_rate)
+    sf.write(output_file, reduced_noise_audio, 16000)
 
     with wave.open(output_file, 'rb') as f:
         data = f.readframes(f.getnframes())
@@ -150,26 +150,32 @@ def listen_offline():
 
 def main():
     query = listen_offline()
+    print(query)#debug
+    attribute, label = get_attribute(query)
+    print(attribute,label)#debug
+    if attribute == 0 : print("Запрос не распознан.")
+    else : print("Метка:", label, "Атрибут:", attribute)
 
-    # Открываем JSON файл
-    with open("keeys.json", "rb") as f:
-        l = json.load(f)
-
-    # Проверяем наличие ключа в словаре
-    found_key = None
-    for key, phrases in l.items():
-        if any(phrase in query for phrase in phrases):
-            found_key = key
-            break
-
-    #ключ для определенного атрибута
-    print(query)
-    if found_key:
-        print("Запрос:", query)
-        attribute, label = get_attribute(found_key)
-        print("Метка:", label,"Атрибут:", attribute)
-    else:
-        print("Запрос не распознан.")
+    # # Открываем JSON файл
+    # with open("keeys.json", "rb") as f:
+    #     l = json.load(f)
+    #
+    # # Проверяем наличие ключа в словаре
+    # found_key = None
+    # for key, phrases in l.items():
+    #     print(key)
+    #     if any(phrase in query for phrase in phrases):
+    #         found_key = key
+    #         break
+    #
+    # #ключ для определенного атрибута
+    # print(query)
+    # if found_key:
+    #     print("Запрос:", query)
+    #     attribute, label = get_attribute(found_key)
+    #     print("Метка:", label,"Атрибут:", attribute)
+    # else:
+    #     print("Запрос не распознан.")
 
 # Запущен ли файл как основная программа.
 if __name__ == '__main__':
