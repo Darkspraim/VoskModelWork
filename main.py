@@ -133,7 +133,7 @@ def listen_offline():
     output_file = "output_audio.wav"
     
     # Загрузка аудиофайла и удаление шума
-    audio, sample_rate = librosa.load(input_file, sr=None)
+    audio, sample_rate = librosa.load(input_file, sr=16000)
     reduced_noise_audio = nr.reduce_noise(y=audio, sr=sample_rate)
 
     # Сохранение обработанного аудиофайла
