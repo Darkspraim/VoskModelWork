@@ -161,13 +161,11 @@ def main():
      # Проверяем наличие ключа в словаре
     found_key = None
     for key, phrases in l.items():
-        print(key)
         if any(phrase in query for phrase in phrases):
             found_key = key
             break
     
     # #ключ для определенного атрибута
-    print(query)
     if found_key:
         print("Запрос:", query)
         attribute, label = get_attribute(found_key)
