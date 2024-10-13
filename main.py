@@ -95,7 +95,7 @@ def spisok(query,attribute = 0):
 
 # Анализирует строку que,
 def get_attribute(que):
-    query = que
+    query = str(que)
     label = -1
     attribute = -1
 
